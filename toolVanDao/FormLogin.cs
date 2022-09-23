@@ -34,7 +34,7 @@ namespace toolVanDao
             {
                
               var ketqua = xulydangnhap(txtTK.Text, txtMK.Text, txtMST.Text);
-                if (ketqua !=null)
+                if (ketqua != null)
                 {
                    var token = JObject.Parse(ketqua);
 
@@ -43,25 +43,27 @@ namespace toolVanDao
                     if (string.IsNullOrWhiteSpace(loi.ToString()))
                     {
                        
-                            //CommonService.UpdateSettingAppConfig(CommonConstants.UsernameLoginWeb, txtTK.Text);
-                            //CommonService.UpdateSettingAppConfig(CommonConstants.PasswordLoginWeb, txtMK.Text);
-                            //CommonService.UpdateSettingAppConfig(CommonConstants.MST, txtMST.Text);
-                            //string UrlRef = $@"https://{txtMST.Text}.minvoice.com.vn/api/System/GetDataReferencesByRefId?refId=RF00187";
-                            //string UrlLogin = $@"https://{txtMST.Text}.minvoice.com.vn/api/Account/Login";
-                            //string UrlSBM = $@"https://{txtMST.Text}.minvoice.com.vn/api/InvoiceAPISSE/GetInvoiceFromDateToDate";
-                            //string UrlDownloadXML = "https://tracuuhoadon.minvoice.com.vn/Tracuu2/ExportZipFileXML";
-                            //CommonService.UpdateSettingAppConfig(CommonConstants.UrlDownloadXML, UrlDownloadXML);
-                            //CommonService.UpdateSettingAppConfig(CommonConstants.UrlRef, UrlRef);
-                            //CommonService.UpdateSettingAppConfig(CommonConstants.UrlSBM, UrlSBM);
-                            //CommonService.UpdateSettingAppConfig(CommonConstants.UrlLogin, UrlLogin);
-                            XtraMessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //CommonService.UpdateSettingAppConfig(CommonConstants.UsernameLoginWeb, txtTK.Text);
+                        //CommonService.UpdateSettingAppConfig(CommonConstants.PasswordLoginWeb, txtMK.Text);
+                        //CommonService.UpdateSettingAppConfig(CommonConstants.MST, txtMST.Text);
+                        //string UrlRef = $@"https://{txtMST.Text}.minvoice.com.vn/api/System/GetDataReferencesByRefId?refId=RF00187";
+                        //string UrlLogin = $@"https://{txtMST.Text}.minvoice.com.vn/api/Account/Login";
+                        //string UrlSBM = $@"https://{txtMST.Text}.minvoice.com.vn/api/InvoiceAPISSE/GetInvoiceFromDateToDate";
+                        //string UrlDownloadXML = "https://tracuuhoadon.minvoice.com.vn/Tracuu2/ExportZipFileXML";
+                        //CommonService.UpdateSettingAppConfig(CommonConstants.UrlDownloadXML, UrlDownloadXML);
+                        //CommonService.UpdateSettingAppConfig(CommonConstants.UrlRef, UrlRef);
+                        //CommonService.UpdateSettingAppConfig(CommonConstants.UrlSBM, UrlSBM);
+                        //CommonService.UpdateSettingAppConfig(CommonConstants.UrlLogin, UrlLogin);
+                        XtraMessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                            this.Hide();
+                        this.Hide();
 
-                            FormGetXML frm = new FormGetXML(txtMST.Text, txtTK.Text, txtMK.Text);
-
+                        using (FormGetXML frm = new FormGetXML(txtMST.Text, txtTK.Text, txtMK.Text))
+                        {
                             frm.ShowDialog();
-                            this.Show();
+                        }
+
+                        this.Show();
                         
                         
                            
@@ -93,11 +95,12 @@ namespace toolVanDao
                 webClient.Headers.Add("Content-Type", "application/json; charset=utf-8");
                 JObject json = new JObject
                 {
-                {"username",tk },
-                {"password",mk },
-                {"ma_dvcs","VP" }
+                    {"username",tk },
+                    {"password",mk },
+                    {"ma_dvcs","VP" }
                 };
-                 ketqua = webClient.UploadString(link, json.ToString());
+
+                ketqua = webClient.UploadString(link, json.ToString());
                 return ketqua;
             }
             catch(Exception e)
@@ -138,11 +141,14 @@ namespace toolVanDao
                             //CommonService.UpdateSettingAppConfig(CommonConstants.UrlRef, UrlRef);
                             //CommonService.UpdateSettingAppConfig(CommonConstants.UrlSBM, UrlSBM);
                             //CommonService.UpdateSettingAppConfig(CommonConstants.UrlLogin, UrlLogin);
-                          XtraMessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            XtraMessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
                             this.Hide();
-                            FormGetXML frm = new FormGetXML(txtMST.Text, txtTK.Text, txtMK.Text);
-                            frm.ShowDialog();
+
+                            using (FormGetXML frm = new FormGetXML(txtMST.Text, txtTK.Text, txtMK.Text))
+                                frm.ShowDialog();
+
                             this.Show();
 
                         }
